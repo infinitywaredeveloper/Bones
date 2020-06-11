@@ -1,40 +1,47 @@
-🚀 NessDumper - ⚠️  Turkish VALVe for their 2013 edition of the Source SDK and also the leaked version from 2007 ⚠️ 
+# ExtremDumper kimdir ?? 🚀
+İnfinityWare yazılım grubunun cs-go offsetleri depoladığı yerdir . bedava yazılımınızın offsetleri ve diğer yazılım grubunun offsetlerini kolayca bulabilmesi için hazırlanmıştır 
+Gaye amacımız bu sektördeki herkese yardım edebilmektir.
 
-Since in the past the signature for the LocalPlayer was broken a few times and/or pointed to something wrong, 
-I want to offer you an alternative. All required offsets are already in the repo, why 99% of people don't use them is 
-questionable - or they are just too incompetent and complain that nothing works, but they can't find a single signature themselves. 
-However, pretty much every hack uses the entity list (dwEntityList) and also ClientState (dwClientState). 
-All you need is a third offset which is located
+## Yerel Oyuncu:
 
-in ClientState, called dwClientState_GetLocalPlayer.
+Geçmişte Yerel Oyuncu imzası birkaç kez kırıldığından ve / veya yanlış bir şeye işaret ettiğinden, size bir alternatif sunmak istiyorum.
+Gerekli tüm ofsetler zaten repoda, insanların% 99'unu neden kullanmadığı tartışmalı - ya da çok yetersiz ve şikayet ediyorlar
+hiçbir şey işe yaramaz, ancak tek bir imza bulamazlar. Ancak, hemen hemen her bilgisayar korsanlığı varlık listesini kullanır
+(`dwEntityList`)
+ve ayrıca ClientState (`dwClientState`). İhtiyacınız olan tek şey ClientState'de bulunan ve dwClientState_GetLocalPlayer adı verilen üçüncü bir ofset.
 
-const auto client_state = read_memory<std::uint32_t>( engine_image->base + nessdumper::signatures::dwClientState );
+```C++
+const auto client_state = read_memory<std::uint32_t>( engine_image->base + hazedumper::signatures::dwClientState );
 if( client_state ) {
     const auto local_player = get_client_entity( 
-        read_memory<std::int32_t>( client_state + nessdumper::signatures::dwClientState_GetLocalPlayer )
+        read_memory<std::int32_t>( client_state + hazedumper::signatures::dwClientState_GetLocalPlayer )
     );
 
     if( local_player ) {
         printf(
             "[+] Found local player: 0x%X, health: %d\n",
             local_player,
-            read_memory<std::int32_t>( local_player + nessdumper::netvars::m_iHealth )
+            read_memory<std::int32_t>( local_player + hazedumper::netvars::m_iHealth )
         );
     }
 }
+```
+
+## Bilgiler:
+
+- Biz grup olarak çoğumuz okudumuz için yada çalıştımız için, bir güncelleme olup olmadığını 7/24 göremiyoruz ve sonra itiyoruz. Bunun mümkün olan en kısa sürede gerçekleşmesini sağlamak için her türlü çabayı gösteriyoruz.
+- 🔫 Havuz her zaman [buhar deposu] 'nun en son sürümünü ifade eder (http://store.steampowered.com/app/730/CounterStrike_Global_Offensive).
+- ⚠️ Yanlış kullanım durumunda VAC yasaklarından sorumlu değiliz.
 
 
-[ Informations ]
+## Kredi:
+- İnfinityware Geliştirici yazılım grubudur [https://infinityware.tr.ht] Discord [https://discord.gg/94brbZD]
+- Ozan Balci [https://github.com/ozanbalci]
+- Furkan Balamri [Yok]
+- MRX [https://github.com/BurakBalamir]
 
-⚠️ Since we are both working and living in germany, we can't see 24/7 if there was an update and then push it. We make every effort to ensure that this happens as soon as possible.
-🔫 The repository always refers to the latest version of the steam store.
-⚠️ We are not liable for VAC bans in case of incorrect use.
-
-VALVe for their 2013 edition of the Source SDK and also the leaked version from 2007
-İnfinityware.gq Yazılım gurubu 
-Furkan Balamir
-Ozan Deniz
-Tospik
-
+## İlham Aldımız Kişiler:
+- HazeDumper [https://github.com/frk1/hazedumper] 
+- BlazeDumper [https://github.com/Akandesh/blazedumper]
 
 
